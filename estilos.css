@@ -1,0 +1,36 @@
+body {
+    background-color: #f9f9f9; /* Color de fondo suave */
+    color: #333; /* Color del texto */
+}
+header {
+    background-color: #4CAF50; /* Verde fuerte */
+    color: white;
+}
+.navbar {
+    background-color: #a5d6a7; /* Verde claro */
+}
+.navbar .nav-link {
+    color: #2e7d32; /* Verde oscuro */
+}
+.navbar .nav-link:hover {
+    color: #1b5e20; /* Verde más oscuro al pasar el mouse */
+}
+.card {
+    border: 1px solid #a5d6a7; /* Borde verde claro */
+}
+.card-header {
+    background-color: #e8f5e9; /* Fondo verde muy claro */
+}
+.info-icon {
+    cursor: pointer;
+    color: #4CAF50; /* Verde fuerte */
+    margin-left: 5px;
+}
+footer {
+    background-color: #4CAF50; /* Verde fuerte */
+    color: white;
+}
+.hidden {
+    display: none; /* Ocultar elementos con la clase 'hidden' */
+}
+
