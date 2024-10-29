@@ -16,22 +16,36 @@ document.querySelectorAll('section:not(#introduccion)').forEach(section => {
     section.classList.add('hidden');
 });
 
-// Lógica para los formularios de cálculo
 document.getElementById('calculo-ds-form').addEventListener('submit', function(event) {
     event.preventDefault();
+
+    // Obtener los valores ingresados
     const P = parseFloat(document.getElementById('P').value);
     const ET = parseFloat(document.getElementById('ET').value);
     const R = parseFloat(document.getElementById('R').value);
     const D = parseFloat(document.getElementById('D').value);
-    const resultado = P - ET - R - D; // Aquí puedes hacer el cálculo que necesites
-    document.getElementById('resultado-ds').textContent = `ΔS = ${resultado.toFixed(2)} mm`;
+    const t = parseFloat(document.getElementById('t').value);
+
+    // Calcular ΔS usando la fórmula ΔS = ∫ (P(t) - ET(t) - R(t) - D(t)) dt
+    const deltaS = (P - ET - R - D) * t;
+
+    // Consejos según el resultado
+    let consejos = '';
+
+    if (deltaS > 20) {
+        consejos = `El balance hídrico es muy positivo, indicando un exceso significativo de agua en el suelo. Se recomienda reducir considerablemente el riego para evitar encharcamientos y posibles daños a las plantas.`;
+    } else if (deltaS >= 0) {
+        consejos = `El balance hídrico es normal. El riego actual parece estar bien balanceado para las condiciones actuales.`;
+    } else if (deltaS > -20) {
+        consejos = `El balance hídrico es negativo, lo que sugiere que el suelo está un poco seco. Se recomienda aumentar un poco el riego para mejorar las condiciones del suelo.`;
+    } else if (deltaS <= -20) {
+        consejos = `El balance hídrico es muy negativo, lo que sugiere una gran escasez de agua en el suelo. Se sugiere aumentar considerablemente el riego o aplicar métodos de retención de agua.`;
+    }
+    
+    document.getElementById('resultado-ds').innerText = "Resultado: " + deltaS + " mm";
+    document.getElementById('consejos').innerText = consejos;
+
+    $('#resultadoModal').modal('show');
 });
 
-document.getElementById('calculo-etc-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const Kc = parseFloat(document.getElementById('Kc').value);
-    const ET0 = parseFloat(document.getElementById('ET0').value);
-    const T = parseFloat(document.getElementById('T').value);
-    const resultado = Kc * ET0 * T; // Aquí puedes hacer el cálculo que necesites
-    document.getElementById('resultado-etc').textContent = `ETc = ${resultado.toFixed(2)} mm`;
-});
+

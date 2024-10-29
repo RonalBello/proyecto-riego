@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Optimización del Riego</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="estilos.css">
+    <script src="scritp.js"></script>
 </head>
+
 <body>
     <header class="text-center py-4">
         <h1>Plataforma de Optimización del Riego</h1>
     </header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,9 +36,12 @@
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
                     <p class="card-text text-center">
-                        La agricultura es uno de los sectores que más agua consume en el mundo. El riego es esencial para la producción de alimentos, 
-                        pero la sobreexplotación de los recursos hídricos es un problema creciente. Las técnicas tradicionales de riego no siempre son 
-                        eficientes y pueden conducir a la pérdida de agua, la erosión del suelo y la salinización. En este contexto, las integrales se 
+                        La agricultura es uno de los sectores que más agua consume en el mundo. El riego es esencial
+                        para la producción de alimentos,
+                        pero la sobreexplotación de los recursos hídricos es un problema creciente. Las técnicas
+                        tradicionales de riego no siempre son
+                        eficientes y pueden conducir a la pérdida de agua, la erosión del suelo y la salinización. En
+                        este contexto, las integrales se
                         presentan como una herramienta poderosa para la optimización del riego.
                     </p>
                 </div>
@@ -49,25 +56,18 @@
                         <h3 class="card-title">Balance Hídrico del Suelo (ΔS)</h3>
                         <p class="card-text">La ecuación utilizada para calcular el balance hídrico del suelo es:</p>
                         <pre class="bg-light p-3"><code>ΔS = ∫ (P(t) - ET(t) - R(t) - D(t)) dt</code></pre>
-                        <p class="card-text">El balance hídrico del suelo es crucial para entender la disponibilidad de agua en el suelo, lo cual es esencial para la planificación del riego y la gestión sostenible de los recursos hídricos.</p>
-                    </div>
-                </div>
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title">Demanda de agua del Cultivo (ETc)</h3>
-                        <p class="card-text">La ecuación utilizada para calcular la evapotranspiración del cultivo es:</p>
-                        <pre class="bg-light p-3"><code>ETc = ∫ Kc(t) ⋅ ET0(t) dt</code></pre>
-                        <p class="card-text">La demanda de agua del cultivo es fundamental para determinar la cantidad de agua que necesita un cultivo específico, lo cual ayuda a optimizar el uso del agua y mejorar la eficiencia del riego.</p>
+                        <p class="card-text">El balance hídrico del suelo es crucial para entender la disponibilidad de
+                            agua en el suelo, lo cual es esencial para la planificación del riego y la gestión
+                            sostenible de los recursos hídricos.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="ejemplos" class="mb-5 hidden">
-            <h2 class="text-center">Calcula con tus datos</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Calcular balance hídrico del suelo</h3>
+        <section id="ejemplos" class="mb-4 hidden">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h3 class="text-center mb-5">Calcular balance hídrico del suelo</h3>
                     <form id="calculo-ds-form" class="mb-4">
                         <div class="form-group">
                             <label for="P">Precipitación (P) [mm]:</label>
@@ -94,31 +94,8 @@
                             <input type="number" class="form-control" id="t" name="t" step="0.01" required>
                             <span class="info-icon" data-toggle="modal" data-target="#infoT">?</span>
                         </div>
-                        <button type="submit" class="btn btn-success">Calcular ΔS</button>
+                        <button type="submit" class="btn btn-success btn-block">Calcular ΔS</button>
                     </form>
-                    <p id="resultado-ds" class="text-center"></p>
-                </div>
-                <div class="col-md-6">
-                    <h3>Calcular la demanda de agua del cultivo</h3>
-                    <form id="calculo-etc-form" class="mb-4">
-                        <div class="form-group">
-                            <label for="Kc">Coeficiente del Cultivo (Kc):</label>
-                            <input type="number" class="form-control" id="Kc" name="Kc" step="0.01" required>
-                            <span class="info-icon" data-toggle="modal" data-target="#infoKc">?</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="ET0">Evapotranspiración de Referencia (ET0) [mm]:</label>
-                            <input type="number" class="form-control" id="ET0" name="ET0" step="0.01" required>
-                            <span class="info-icon" data-toggle="modal" data-target="#infoET0">?</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="T">Duración (T) [días]:</label>
-                            <input type="number" class="form-control" id="T" name="T" step="0.01" required>
-                            <span class="info-icon" data-toggle="modal" data-target="#infoT">?</span>
-                        </div>
-                        <button type="submit" class="btn btn-success">Calcular ETc</button>
-                    </form>
-                    <p id="resultado-etc" class="text-center"></p>
                 </div>
             </div>
         </section>
@@ -143,15 +120,165 @@
         </section>
     </main>
 
+
+    <!-- Modal para mostrar el resultado y consejos -->
+    <div class="modal fade" id="resultadoModal" tabindex="-1" aria-labelledby="resultadoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultadoModalLabel">Resultados y Consejos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="resultado-ds" class="text-center text-dark font-weight-bold"></p>
+                    <p id="consejos" class="text-secondary"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Precipitación (P) -->
+    <div class="modal fade" id="infoP" tabindex="-1" role="dialog" aria-labelledby="infoPLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoPLabel">Información sobre Precipitación (P)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>La precipitación (P) se refiere a la cantidad de agua que cae en forma de lluvia o nieve durante
+                        un periodo de tiempo específico.</p>
+                    <p><strong>Para más información:</strong></p>
+                    <ul>
+                        
+                                Precipitación</a></li>
+                        <li><a href="https://ideam.gov.co/web/tiempo-y-clima/graficos-seguimiento-diario-precipitacion-principales-ciudades" target="_blank">Instituto de Hidrología, Meteorología y Estudios</a></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Evapotranspiración (ET) -->
+    <div class="modal fade" id="infoET" tabindex="-1" role="dialog" aria-labelledby="infoETLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoETLabel">Información sobre Evapotranspiración (ET)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>La evapotranspiración (ET) es la cantidad de agua que se evapora del suelo y se transpira de las
+                        plantas durante un periodo de tiempo específico.</p>
+                    <p><strong>Para más información:</strong></p>
+                    <ul>
+                        
+                                Evapotranspiración</a></li>
+                        <li><a href="https://storymaps.arcgis.com/stories/5a10de47cd1647078f37800b867e1523" target="_blank">Metodología: Cálculo de la Evapotranspiración para Colombia</a></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Escurrimiento (R) -->
+    <div class="modal fade" id="infoR" tabindex="-1" role="dialog" aria-labelledby="infoRLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoRLabel">Información sobre Escurrimiento (R)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>El escurrimiento (R) se refiere al agua que fluye por la superficie del terreno y que no se
+                        infiltra en el suelo.</p>
+                    <p><strong>Para más información:</strong></p>
+                    <ul>
+                        <li><a href="file:///C:/Users/RAB/Downloads/Proyecto(integral)%20(1).pdf" target="_blank">Coeficiente de Escurrimiento Hidrológico: Clave para Entender la Hidrología</a></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Percolación (D) -->
+    <div class="modal fade" id="infoD" tabindex="-1" role="dialog" aria-labelledby="infoDLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoDLabel">Información sobre Percolación (D)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>La percolación (D) es el proceso por el cual el agua se mueve a través del suelo, generalmente
+                        hacia las capas más profundas.</p>
+                    <p><strong>Para más información:</strong></p>
+                    <ul>
+                                Percolación</a></li>
+                        <li><a href="https://explainedy.com/formula-para-la-tasa-de-percolacion/" target="_blank">Fórmula para la tasa de percolación</a></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Tiempo (t) -->
+    <div class="modal fade" id="infoT" tabindex="-1" role="dialog" aria-labelledby="infoTLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoTLabel">Información sobre Tiempo (t)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>El tiempo (t) se refiere a la duración del periodo durante el cual se realiza el cálculo del
+                        balance hídrico del suelo.</p>                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <footer class="text-center py-3">
         <p>&copy; 2024 Plataforma de Optimización del Riego</p>
     </footer>
 
-    <!-- Repite modales similares para ET, R, D, Kc, ET0 -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scritp.js"></script>
 </body>
+
 </html>
