@@ -7,6 +7,7 @@
     <title>Plataforma de Optimización del Riego</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="Boostrap/css/bootstrap.min.css">
     <script src="scritp.js"></script>
 </head>
 
@@ -61,12 +62,23 @@
                             sostenible de los recursos hídricos.</p>
                     </div>
                 </div>
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title">Demanda de agua del Cultivo (ETc)</h3>
+                        <p class="card-text">La ecuación utilizada para calcular la evapotranspiración del cultivo es:
+                        </p>
+                        <pre class="bg-light p-3"><code>ETc = ∫ Kc(t) ⋅ ET0(t) dt</code></pre>
+                        <p class="card-text">La demanda de agua del cultivo es fundamental para determinar la cantidad
+                            de agua que necesita un cultivo específico, lo cual ayuda a optimizar el uso del agua y
+                            mejorar la eficiencia del riego.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="ejemplos" class="mb-4 hidden">
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <h3 class="text-center mb-5">Calcular balance hídrico del suelo</h3>
                     <form id="calculo-ds-form" class="mb-4">
                         <div class="form-group">
@@ -97,6 +109,35 @@
                         <button type="submit" class="btn btn-success btn-block">Calcular ΔS</button>
                     </form>
                 </div>
+                <div class="col-md-5">
+                    <h3>Calcular la demanda de agua del cultivo</h3>
+                    <form id="calculo-etc-form" class="mb-4" onsubmit="event.preventDefault(); calcularETc();">
+                        <div class="form-group">
+                            <label for="Kc">Coeficiente del Cultivo (Kc):</label>
+                            <input type="number" class="form-control" id="Kc" name="Kc" step="0.01" required>
+                            <span class="info-icon" data-toggle="modal" data-target="#infoKc">?</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="ET0Base">Valor base de ET0:</label>
+                            <input type="number" class="form-control" id="ET0Base" name="ET0Base" step="0.01" required>
+                            <span class="info-icon" data-toggle="modal" data-target="#infoET0">?</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="ET0Slope">Pendiente de ET0:</label>
+                            <input type="number" class="form-control" id="ET0Slope" name="ET0Slope" step="0.01"
+                                required>
+                            <span class="info-icon" data-toggle="modal" data-target="#infoET0">?</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="T">Duración (T) [horas]:</label>
+                            <input type="number" class="form-control" id="T" name="T" step="1" required>
+                            <span class="info-icon" data-toggle="modal" data-target="#infoT">?</span>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Calcular ETc</button>
+                    </form>
+                    <p id="resultado-etc" class="text-center"></p>
+                </div>
+
             </div>
         </section>
 
@@ -142,6 +183,27 @@
         </div>
     </div>
 
+    <!-- Modal para mostrar el resultado y consejos -->
+    <div class="modal fade" id="resultadoModal" tabindex="-1" aria-labelledby="resultadoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultadoModalLabel">Resultados y Consejos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="resultado-ds" class="text-center text-dark font-weight-bold"></p>
+                    <p id="consejos" class="text-secondary"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal for Precipitación (P) -->
     <div class="modal fade" id="infoP" tabindex="-1" role="dialog" aria-labelledby="infoPLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -157,9 +219,10 @@
                         un periodo de tiempo específico.</p>
                     <p><strong>Para más información:</strong></p>
                     <ul>
-                        
-                                Precipitación</a></li>
-                        <li><a href="https://ideam.gov.co/web/tiempo-y-clima/graficos-seguimiento-diario-precipitacion-principales-ciudades" target="_blank">Instituto de Hidrología, Meteorología y Estudios</a></li>
+
+                        Precipitación</a></li>
+                        <li><a href="https://ideam.gov.co/web/tiempo-y-clima/graficos-seguimiento-diario-precipitacion-principales-ciudades"
+                                target="_blank">Instituto de Hidrología, Meteorología y Estudios</a></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -184,9 +247,10 @@
                         plantas durante un periodo de tiempo específico.</p>
                     <p><strong>Para más información:</strong></p>
                     <ul>
-                        
-                                Evapotranspiración</a></li>
-                        <li><a href="https://storymaps.arcgis.com/stories/5a10de47cd1647078f37800b867e1523" target="_blank">Metodología: Cálculo de la Evapotranspiración para Colombia</a></li>
+
+                        Evapotranspiración</a></li>
+                        <li><a href="https://storymaps.arcgis.com/stories/5a10de47cd1647078f37800b867e1523"
+                                target="_blank">Metodología: Cálculo de la Evapotranspiración para Colombia</a></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -211,7 +275,9 @@
                         infiltra en el suelo.</p>
                     <p><strong>Para más información:</strong></p>
                     <ul>
-                        <li><a href="file:///C:/Users/RAB/Downloads/Proyecto(integral)%20(1).pdf" target="_blank">Coeficiente de Escurrimiento Hidrológico: Clave para Entender la Hidrología</a></li>
+                        <li><a href="file:///C:/Users/RAB/Downloads/Proyecto(integral)%20(1).pdf"
+                                target="_blank">Coeficiente de Escurrimiento Hidrológico: Clave para Entender la
+                                Hidrología</a></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -236,8 +302,9 @@
                         hacia las capas más profundas.</p>
                     <p><strong>Para más información:</strong></p>
                     <ul>
-                                Percolación</a></li>
-                        <li><a href="https://explainedy.com/formula-para-la-tasa-de-percolacion/" target="_blank">Fórmula para la tasa de percolación</a></li>
+                        Percolación</a></li>
+                        <li><a href="https://explainedy.com/formula-para-la-tasa-de-percolacion/"
+                                target="_blank">Fórmula para la tasa de percolación</a></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -259,7 +326,114 @@
                 </div>
                 <div class="modal-body">
                     <p>El tiempo (t) se refiere a la duración del periodo durante el cual se realiza el cálculo del
-                        balance hídrico del suelo.</p>                
+                        balance hídrico del suelo.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Coeficiente del Cultivo (Kc) -->
+    <div class="modal fade" id="infoKc" tabindex="-1" role="dialog" aria-labelledby="infoKcLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoKcLabel">Información sobre Coeficiente del Cultivo (Kc)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>El Coeficiente del Cultivo (Kc) es un factor que refleja las características del cultivo y su
+                        consumo de agua en relación con la evapotranspiración.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Valor base de ET0 -->
+    <div class="modal fade" id="infoET0" tabindex="-1" role="dialog" aria-labelledby="infoET0Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoET0Label">Información sobre Valor base de ET0</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Este es el valor base de la evapotranspiración que representa la demanda mínima de agua en el
+                        inicio del día, cuando la temperatura es más baja.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Pendiente de ET0 -->
+    <div class="modal fade" id="infoET0Slope" tabindex="-1" role="dialog" aria-labelledby="infoET0SlopeLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoET0SlopeLabel">Información sobre Pendiente de ET0</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>La pendiente de ET0 indica cómo cambia la evapotranspiración de referencia con el tiempo, en
+                        función de factores como las variaciones climáticas diarias.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Duración (T) -->
+    <div class="modal fade" id="infoT" tabindex="-1" role="dialog" aria-labelledby="infoTLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoTLabel">Información sobre Duración (T)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>La duración (T) se refiere al periodo de tiempo en horas durante el cual se mide la
+                        evapotranspiración para el cálculo.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmacionModalLabel">Agradecemos su Retroalimentación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Gracias por compartir sus observaciones y sugerencias con nosotros. Valoramos su colaboración
+                        para mejorar nuestro servicio y trabajaremos en sus comentarios a la brevedad posible.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -269,16 +443,15 @@
     </div>
 
 
-
     <footer class="text-center py-3">
         <p>&copy; 2024 Plataforma de Optimización del Riego</p>
     </footer>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scritp.js"></script>
+    <script src="Boostrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
